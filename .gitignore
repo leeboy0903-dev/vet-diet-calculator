@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.env
+.env.*
+!.env.example
+patient-diet/preview.jpg
+patient-diet/research.cjs
+patient-diet/inspect-product.cjs
+VetDiet-backup-*.json
