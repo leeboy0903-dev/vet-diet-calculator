@@ -9,3 +9,7 @@ patient-diet/inspect-product.cjs
 VetDiet-backup-*.json
 VetDiet-surgery-backup-*.json
 patient-diet/clinical-preview.jpg
+
+ipad-site/
+patient-diet/ipad-preview.jpg
+ipad-site.tar.gz

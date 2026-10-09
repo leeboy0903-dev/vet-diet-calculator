@@ -1,0 +1,9 @@
+/* Cache only the app shell. Patient records remain in device localStorage. */
+const CACHE='vetdiet-shell-2026-10-10-v1';
+const ASSETS=['./','./index.html','./style.css','./catalog.js','./engine.js','./clinical.js','./app.js','./surgery.js','./clinical-app.js','./pwa.js','./manifest.webmanifest','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-512.png'];
+self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const path of ASSETS){const response=await fetch(new URL(path,self.registration.scope),{cache:'reload'});if(!response.ok||response.redirected)throw Error('App shell unavailable');await cache.put(new URL(path,self.registration.scope),response);}})()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const name of await caches.keys())if(name.startsWith('vetdiet-shell-')&&name!==CACHE)await caches.delete(name);await self.clients.claim();})()));
+self.addEventListener('message',event=>{if(event.data==='ACTIVATE_UPDATE')self.skipWaiting();});
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin)return;const shell=event.request.mode==='navigate',known=ASSETS.some(path=>new URL(path,self.registration.scope).pathname===url.pathname);if(!shell&&!known)return;
+ event.respondWith((async()=>{const cache=await caches.open(CACHE);try{const response=await fetch(event.request);if(response.ok&&!response.redirected){const content=response.headers.get('content-type')||'';if(!shell||content.includes('text/html'))await cache.put(shell?new URL('./index.html',self.registration.scope):new URL(url.pathname,self.location.origin),response.clone());}return response;}catch(error){const saved=await cache.match(shell?new URL('./index.html',self.registration.scope):new URL(url.pathname,self.location.origin));if(saved)return saved;throw error;}})());
+});

@@ -34,3 +34,13 @@ node serve.cjs
 cd patient-diet
 node --test tests/*.test.cjs
 ```
+
+## 아이패드 웹앱
+
+아이패드 Safari에서 배포 링크를 연 뒤 본인 계정으로 로그인하고, 공유 → 더 보기 → 홈 화면에 추가를 선택하세요. 표시되면 ‘웹 앱으로 열기’를 켭니다. 홈 화면의 VetDiet 아이콘으로 실행할 수 있습니다.
+
+배포 링크: https://vetdiet-leeboy-ipad.cooltapir2.chatgpt.site
+
+기록은 각 기기·브라우저의 저장 공간에 있으며 자동 동기화하지 않습니다. PC에서 급여 기록과 수술 기록을 각각 백업하고 아이패드 앱에서 각각 불러오세요. Safari와 홈 화면 앱의 저장 공간도 다를 수 있습니다. ‘앱 준비 완료’ 후 기본 계산·등록 자료 조회는 연결 없이 이용할 수 있습니다. 제조사/근거 링크·로그인·업데이트에는 인터넷 연결이 필요합니다.
+
+Sites 배포 사본은 `ipad-site/`(Git 제외)에 있으며 `.openai/hosting.json`의 기존 project_id를 재사용합니다. 업데이트는 수정된 `patient-diet/dist/`를 이 사본에 반영하고 같은 Site의 소스 동기화·패키징·비공개 배포 절차를 사용합니다. 서비스워커의 CACHE 버전도 갱신합니다.
